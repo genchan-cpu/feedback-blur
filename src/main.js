@@ -1,7 +1,5 @@
 import * as THREE from "three";
-
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-
 import vertex from "./shaders/vertex.glsl";
 import blurFragment from "./shaders/blur.glsl";
 import feedbackFragment from "./shaders/fragment.glsl";
@@ -97,12 +95,10 @@ class Sketch {
     this.mesh = new THREE.Mesh(this.quad, this.feedbackMaterial);
     this.scene.add(this.mesh);
 
-    // メソッドのバインド
     this.renderFrame = this.renderFrame.bind(this);
     this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
     this.handleResize = this.handleResize.bind(this);
 
-    // this.initializeOrbitControls();
     this.handleResize();
     this.setupEventListeners();
     this.startRenderLoop();
@@ -129,17 +125,14 @@ class Sketch {
       ctx.fillStyle = "rgba(0, 0, 0, 0)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // アスペクト比に応じてフォントサイズを調整
       const aspectRatio = width / height;
       const fontSize = (aspectRatio >= 1 ? 300 : 150) * 2;
 
-      // テキスト設定
       ctx.fillStyle = "WHITE";
       ctx.font = `bold ${fontSize}px Arial`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
-      // テキストを描画
       ctx.fillText("OGMA", canvas.width / 2, canvas.height / 2);
     }
 
@@ -272,4 +265,7 @@ class Sketch {
   }
 }
 
-new Sketch(document.getElementById("canvas-container"));
+window.addEventListener("load", () => {
+  new Sketch(document.getElementById("canvas-container"));
+
+})
